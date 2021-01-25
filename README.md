@@ -1,107 +1,101 @@
-# Navigation
+Fragments
 
-This is the toy app for lesson 3 of the [Android App Development in Kotlin course on Udacity](https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012).
+A fragment is an independent Android component which can be used by an activity. A fragment encapsulates functionality so that it is easier to reuse within activities and layouts. A fragment runs in the context of an activity, but has its own life cycle and typically its own user interface.Sep 22, 2020
 
-## Android Trivia 
+Why fragments are used in Android?
 
-The Android Trivia application is an application that asks the user trivia questions about Android development.  It makes use of the Navigation component within Jetpack to move the user between different screens.  Each screen is implemented as a Fragment.
-The app navigates using buttons, the Action Bar, and the Navigation Drawer.
-Since students haven't yet learned about saving data or the Android lifecycle, it tries to eliminate bugs caused by configuration changes. 
+Passing information between app screens
 
-## Screenshots
+Historically each screen in an Android app was implemented as a separate Activity. ... By making each screen a separate Fragment, this data passing headache is completely avoided. Fragments always exist within the context of a given Activity and can always access that Activity
 
-![Screenshot1](screenshots/screen_1.png) ![Screenshot2](screenshots/screen_2.png)
+Difference between fragment and activity
 
-## How to use this repo while taking the course
+Fragment	Activity
+Fragment represents a behavior or a portion of user interface in an Activity.	Activity is the part where the user will interacts with your application.
+A fragment can be reused in multiple activities, so it acts like a reusable component in activities. 	The activity has own life cycle but fragment has there own life cycle. For Activity, we just need to mention in Manifest but for fragment its not required.
 
-
-Each code repository in this class has a chain of commits that looks like this:
-
-![listofcommits](https://d17h27t6h515a5.cloudfront.net/topher/2017/March/58befe2e_listofcommits/listofcommits.png)
-
-These commits show every step you'll take to create the app. Each commit contains instructions for completing the that step.
-
-Each commit also has a **branch** associated with it of the same name as the commit message, seen below:
-
-![branches](https://d17h27t6h515a5.cloudfront.net/topher/2017/April/590390fe_branches-ud855/branches-ud855.png
-)
-Access all branches from this tab
-
-![listofbranches](https://d17h27t6h515a5.cloudfront.net/topher/2017/March/58befe76_listofbranches/listofbranches.png
-)
+Fragment represents a behavior or a portion of user interface in an Activity. You can combine multiple fragments in a single activity to build a multi-pane UI and reuse a fragment in multiple activities
 
 
-![branchesdropdown](https://d17h27t6h515a5.cloudfront.net/topher/2017/April/590391a3_branches-dropdown-ud855/branches-dropdown-ud855.png
-)
+What is the Back Stack?
 
-The branches are also accessible from the drop-down in the "Code" tab
+A task is a collection of activities that users interact with when performing a certain job. The activities are arranged in a stack—the back stack) in the order in which each activity is opened. 
 
+If the user presses the Back button, that new activity is finished and popped off the stack.
 
-## Working with the Course Code
+Fragment Back Stack Managment
 
-Here are the basic steps for working with and completing exercises in the repo.
-
-The basic steps are:
-
-1. Clone the repo
-2. Checkout the branch corresponding to the step you want to attempt
-3. Find and complete the TODOs
-4. Optionally commit your code changes
-5. Compare your code with the solution
-6. Repeat steps 2-5 until you've gone trough all the steps to complete the toy app
+FragmentManager is the class responsible for performing actions on your app's fragments, such as adding, removing, or replacing them, and adding them to the back stack.
 
 
-**Step 1: Clone the repo**
+Principles of Navigation
 
-As you go through the course, you'll be instructed to clone the different exercise repositories, so you don't need to set these up now. You can clone a repository from github in a folder of your choice with the command:
+First Principle
+* There’s always a starting place
 
-```bash
-git clone https://github.com/udacity/REPOSITORY_NAME.git
-```
+Second Principle
+* You can always go back 
+* It is also known as back stack
 
-**Step 2: Checkout the step branch**
+Third Principle
+* Up goes back (mostly)
 
-As you go through different steps in the code, you'll be told which step you're on, as well as a link to the corresponding branch.
 
-You'll want to check out the branch associated with that step. The command to check out a branch would be:
+Action	Definition
+PopTo Non-Inclusive	Pops off everything on the back stack until it finds the referenced fragment transactions.
+PopTo Inclusive	Pops offs everything on the back stack, including the referenced fragment transaction.
 
-```bash
-git checkout BRANCH_NAME
-```
 
-**Step 3: Find and complete the TODOs**
+￼
 
-Once you've checked out the branch, you'll have the code in the exact state you need. You'll even have TODOs, which are special comments that tell you all the steps you need to complete the exercise. You can easily navigate to all the TODOs using Android Studio's TODO tool. To open the TODO tool, click the button at the bottom of the screen that says TODO. This will display a list of all comments with TODO in the project. 
 
-We've numbered the TODO steps so you can do them in order:
-![todos](https://d17h27t6h515a5.cloudfront.net/topher/2017/March/58bf00e7_todos/todos.png
-)
+What is Android Bundle ?
 
-**Step 4: Commit your code changes**
+Android Bundle is used to pass data between activities. The values that are to be passed are mapped to String keys which are later used in the next activity to retrieve the values. Following are the major types that are passed/retrieved to/from a Bundle.
 
-After You've completed the TODOs, you can optionally commit your changes. This will allow you to see the code you wrote whenever you return to the branch. The following git code will add and save **all** your changes.
 
-```bash
-git add .
-git commit -m "Your commit message"
-```
+What is intent and intents filter?
 
-**Step 5: Compare with the solution**
+An Intent is a messaging object you can use to request an action from another app component. Although intents facilitate communication between components in several ways, there are three fundamental use cases:
 
-Most exercises will have a list of steps for you to check off in the classroom. Once you've checked these off, you'll see a pop up window with a link to the solution code. Note the **Diff** link:
 
-![solutionwindow](https://d17h27t6h515a5.cloudfront.net/topher/2017/March/58bf00f9_solutionwindow/solutionwindow.png
-)
+* Explicit intents
 
-The **Diff** link will take you to a Github diff as seen below:
-![diff](https://d17h27t6h515a5.cloudfront.net/topher/2017/March/58bf0108_diffsceenshot/diffsceenshot.png
-)
+specify which application will satisfy the intent, by supplying either the target app's package name or a fully-qualified component class name. You'll typically use an explicit intent to start a component in your own app, because you know the class name of the activity or service you want to start. For example, you might start a new activity within your app in response to a user action, or start a service to download a file in the background.
 
-All of the code that was added in the solution is in green, and the removed code (which will usually be the TODO comments) is in red. 
+Launch specific activity
 
-You can also compare your code locally with the branch of the following step.
+* Implicit intents 
+do not name a specific component, but instead declare a general action to perform, which allows a component from another app to handle it. For example, if you want to show the user a location on a map, you can use an implicit intent to request that another capable app show a specified location on a map.
 
-## Report Issues
-Notice any issues with a repository? Please file a github issue in the repository.
+Specify what you want done and system chooses activity
 
-# Android-Trivia
+
+Intent Action
+
+The type of thing that the app wants to have done on its behalf.
+
+Common Action
+
+Action_view
+Action_dial
+Action_edit
+
+Intent Category
+
+Adds a subtype to the action
+
+* Category_App_Music
+* Category_App_Email
+* Category_App_Maps
+* Category_App_Gallery
+* Category_App_Calculator
+* Category_App_Calendar
+
+
+Intent Data Type
+
+MIME Data Type
+Allow activities to support specific data types.
+
+￼
